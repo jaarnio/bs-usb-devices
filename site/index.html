@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0;
+        height: 1080px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+      }
+      #videoContainer {
+        display: flex;
+        justify-content: space-around;
+        width: 1920px;
+      }
+      video {
+        width: 640px;
+        height: 480px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="videoContainer">
+      <video id="video1" autoplay></video>
+      <video id="video2" autoplay></video>
+    </div>
+    <script>
+      const supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
+
+      for (const constraint of Object.keys(supportedConstraints)) {
+        console.log(`${constraint}: ${supportedConstraints[constraint]}`);
+      }
+
+      navigator.mediaDevices
+        .getUserMedia({
+          video: {
+            deviceId: "3f7a133f04d53d013f163cbe04f4215fe40c42fb5f490eb10513fca9eedb6b25",
+          },
+        })
+        .then((stream) => (document.getElementById("video1").srcObject = stream))
+        .catch(console.error);
+
+      navigator.mediaDevices
+        .getUserMedia({
+          video: {
+            deviceId: "bb65577442cfa7a1e3e0744f73e925a05b760d87fd317a3e576f78f6f07a1070",
+          },
+        })
+        .then((stream) => (document.getElementById("video2").srcObject = stream))
+        .catch(console.error);
+
+      if (!navigator.mediaDevices?.enumerateDevices) {
+        console.log("enumerateDevices() not supported.");
+      } else {
+        // List cameras and microphones.
+        navigator.mediaDevices
+          .enumerateDevices()
+          .then((devices) => {
+            devices.forEach((device) => {
+              console.log(`${device.kind}: ${device.label} ${device.deviceId}`);
+            });
+          })
+          .catch((err) => {
+            console.error(`${err.name}: ${err.message}`);
+          });
+      }
+    </script>
+  </body>
+</html>
