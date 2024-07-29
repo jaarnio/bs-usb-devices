@@ -21,3 +21,14 @@ di.getUsbTopology()
   .catch((error) => {
     console.error("Error:", error);
   });
+
+const getSerialPorts = async function () {
+  try {
+    const ports = await serialPortList.list();
+    console.log("Serial Ports:", ports);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+getSerialPorts();

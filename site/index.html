@@ -28,12 +28,6 @@
       <video id="video2" autoplay></video>
     </div>
     <script>
-      const supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
-
-      for (const constraint of Object.keys(supportedConstraints)) {
-        console.log(`${constraint}: ${supportedConstraints[constraint]}`);
-      }
-
       navigator.mediaDevices
         .getUserMedia({
           video: {
@@ -62,9 +56,6 @@
             devices.forEach((device) => {
               console.log(`${device.kind}: ${device.label} ${device.deviceId}`);
             });
-          })
-          .catch((err) => {
-            console.error(`${err.name}: ${err.message}`);
           });
       }
     </script>
