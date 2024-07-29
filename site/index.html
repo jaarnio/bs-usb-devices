@@ -6,6 +6,7 @@
         margin: 0;
         height: 1080px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background: #000;
@@ -16,9 +17,15 @@
         width: 1920px;
       }
       video {
-        width: 640px;
+        width: 720px;
         height: 480px;
         margin: 20px;
+      }
+      .nx {
+        color: #fff;
+        font-size: 40px;
+        text-align: center;
+        margin-top: 50px;
       }
     </style>
   </head>
@@ -27,37 +34,96 @@
       <video id="video1" autoplay></video>
       <video id="video2" autoplay></video>
     </div>
+    <div class="nx">---</div>
     <script>
-      navigator.mediaDevices
-        .getUserMedia({
-          video: {
-            deviceId: "3f7a133f04d53d013f163cbe04f4215fe40c42fb5f490eb10513fca9eedb6b25",
-          },
-        })
-        .then((stream) => (document.getElementById("video1").srcObject = stream))
-        .catch(console.error);
+      // WebSocket listener
+      const socket = new WebSocket("ws://localhost:1234");
+      socket.onmessage = function (event) {
+        console.log("Browser recieved:", event.data);
+        const nxDiv = document.querySelector(".nx");
+        nxDiv.innerText = event.data;
+      };
+      socket.onerror = function (error) {
+        console.error("WebSocket Error:", error);
+      };
 
-      navigator.mediaDevices
-        .getUserMedia({
-          video: {
-            deviceId: "bb65577442cfa7a1e3e0744f73e925a05b760d87fd317a3e576f78f6f07a1070",
-          },
-        })
-        .then((stream) => (document.getElementById("video2").srcObject = stream))
-        .catch(console.error);
+      // Use this function in the console for testing
+      function send(message) {
+        socket.send(message);
+      }
 
-      if (!navigator.mediaDevices?.enumerateDevices) {
-        console.log("enumerateDevices() not supported.");
-      } else {
-        // List cameras and microphones.
-        navigator.mediaDevices
-          .enumerateDevices()
-          .then((devices) => {
-            devices.forEach((device) => {
-              console.log(`${device.kind}: ${device.label} ${device.deviceId}`);
-            });
+      // Function to fetch serial ports data
+      function fetchSerialPorts() {
+        fetch("http://localhost:3000/serialports")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok " + response.statusText);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Convert JSON array to plain text
+            const plainText = JSON.stringify(data, null, 2);
+            console.log("Serial Ports (Plain Text):\n", plainText);
+          })
+          .catch((error) => {
+            console.error("There was a problem with the fetch operation:", error);
           });
       }
+
+      // Function to set up video elements
+      async function setupVideoElements() {
+        try {
+          // First call to getUserMedia
+          const stream1 = await navigator.mediaDevices.getUserMedia({ video: true });
+          const video1 = document.getElementById("video1");
+          video1.srcObject = stream1;
+          const video1Track = stream1.getVideoTracks()[0];
+          console.log(
+            `Stream assigned to video1:`,
+            stream1,
+            `Device label: ${video1Track.label}`
+          );
+
+          // Enumerate devices to find video input devices
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          const videoInputDevices = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+
+          // Find the device ID already assigned to video1
+          const video1DeviceId = videoInputDevices.find(
+            (device) => device.label === video1Track.label
+          ).deviceId;
+
+          // Find the remaining device ID
+          const remainingDevice = videoInputDevices.find(
+            (device) => device.deviceId !== video1DeviceId
+          );
+
+          if (remainingDevice) {
+            // Second call to getUserMedia for the remaining device
+            const stream2 = await navigator.mediaDevices.getUserMedia({
+              video: { deviceId: { exact: remainingDevice.deviceId } },
+            });
+            const video2 = document.getElementById("video2");
+            video2.srcObject = stream2;
+            const video2Track = stream2.getVideoTracks()[0];
+            console.log(
+              `Stream assigned to video2:`,
+              stream2,
+              `Device label: ${video2Track.label}`
+            );
+          } else {
+            console.log("No remaining video input device found.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+
+      // Call the function to set up video elements
+      setupVideoElements();
     </script>
   </body>
 </html>

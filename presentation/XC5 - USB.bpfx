@@ -1,6 +1,6 @@
 {
   "meta": {
-    "brightAuthorVersion": "1.41.0",
+    "brightAuthorVersion": "1.37.1",
     "buildType": "Standard"
   },
   "bsdm": {
@@ -498,7 +498,7 @@
         }
       },
       "wssDeviceSpec": {},
-      "lastModifiedTime": "2024-07-27T01:18:05.317Z"
+      "lastModifiedTime": "2024-07-28T01:03:39.968Z"
     },
     "zones": {
       "zonesById": {
@@ -508,7 +508,7 @@
           "type": "VideoOrImages",
           "tag": "VI1",
           "nonInteractive": false,
-          "initialMediaStateId": "838ddef6-611f-4000-a77c-4afc797b0000",
+          "initialMediaStateId": "b7e809de-eb4b-4000-a84d-b5b12ab95000",
           "position": {
             "width": 1920,
             "height": 1080,
@@ -643,7 +643,7 @@
         "3e1c10c1-88a4-4000-a3ca-4f1b6d72f000"
       ],
       "zoneTagIndices": {
-        "f0d6f0cc-ac10-4000-abee-c2db41f80000": 3
+        "f0d6f0cc-ac10-4000-abee-c2db41f80000": 5
       }
     },
     "screens": {
@@ -702,13 +702,48 @@
             "enableFileURLSharedStorage": true,
             "enableHtmlURLSharedStorage": false
           }
+        },
+        "b7e809de-eb4b-4000-a84d-b5b12ab95000": {
+          "id": "b7e809de-eb4b-4000-a84d-b5b12ab95000",
+          "name": "Event Handler",
+          "tag": "3",
+          "container": {
+            "id": "f0d6f0cc-ac10-4000-abee-c2db41f80000",
+            "type": 0
+          },
+          "contentItem": {
+            "name": "Event Handler",
+            "type": "EventHandler",
+            "stopPlayback": false
+          }
         }
       },
       "sequencesByParentId": {}
     },
-    "events": {},
+    "events": {
+      "ef8058c0-4b46-4000-a96f-597d45bfa000": {
+        "id": "ef8058c0-4b46-4000-a96f-597d45bfa000",
+        "name": "Event Handler_ev_ev",
+        "type": "Timer",
+        "mediaStateId": "b7e809de-eb4b-4000-a84d-b5b12ab95000",
+        "disabled": false,
+        "data": {
+          "interval": 3
+        },
+        "action": "None"
+      }
+    },
     "transitions": {
-      "transitionsById": {},
+      "transitionsById": {
+        "36f86160-2e47-4000-af15-d141058d3000": {
+          "id": "36f86160-2e47-4000-af15-d141058d3000",
+          "name": "Event Handler_ev_tr",
+          "eventId": "ef8058c0-4b46-4000-a96f-597d45bfa000",
+          "targetMediaStateId": "838ddef6-611f-4000-a77c-4afc797b0000",
+          "type": "No effect",
+          "duration": 0
+        }
+      },
       "sequencesByEventId": {}
     },
     "commands": {
@@ -728,14 +763,14 @@
           "params": []
         },
         "indexAssetId": "bb023bc3-852b-4000-a1e0-9c44780f3000",
-        "enableNode": false
+        "enableNode": true
       }
     },
     "nodeApps": {
       "ce237312-f2cd-4000-af5f-747466bcb000": {
         "id": "ce237312-f2cd-4000-af5f-747466bcb000",
-        "name": "usb",
-        "indexAssetId": "a4e6f2b2-5198-4000-a8a3-8822a3383000"
+        "name": "bundle",
+        "indexAssetId": "47f93d1a-85ea-4000-ad0b-d1781f632000"
       }
     },
     "dataFeeds": {
@@ -765,27 +800,27 @@
       "bb023bc3-852b-4000-a1e0-9c44780f3000": {
         "id": "bb023bc3-852b-4000-a1e0-9c44780f3000",
         "name": "index.html",
-        "path": "P:\\BrightSign\\BrightSign Dev\\bs-usb-devices\\site\\",
+        "path": "/Users/johnaarnio/Downloads/bs-usb-devices/site/",
         "networkId": 0,
         "location": "Local",
         "assetType": "HtmlSite",
-        "scope": "9560ed3374e2cc1c",
-        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\bs-usb-devices\\site\\index.html",
-        "fileSize": 1576,
-        "lastModifiedDate": "2024-07-26T21:16:19.904Z",
+        "scope": "a04aa10dc234825d",
+        "locator": "file:///Users/johnaarnio/Downloads/bs-usb-devices/site/index.html",
+        "fileSize": 1988,
+        "lastModifiedDate": "2024-07-27T01:25:22.045Z",
         "refCount": 1
       },
-      "a4e6f2b2-5198-4000-a8a3-8822a3383000": {
-        "id": "a4e6f2b2-5198-4000-a8a3-8822a3383000",
-        "name": "usb.js",
-        "path": "P:\\BrightSign\\BrightSign Dev\\bs-usb-devices\\server\\",
+      "47f93d1a-85ea-4000-ad0b-d1781f632000": {
+        "id": "47f93d1a-85ea-4000-ad0b-d1781f632000",
+        "name": "bundle.js",
+        "path": "/Users/johnaarnio/Downloads/bs-usb-devices/dist/",
         "networkId": 0,
         "location": "Local",
         "assetType": "HtmlSite",
-        "scope": "9560ed3374e2cc1c",
-        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\bs-usb-devices\\server\\usb.js",
-        "fileSize": 675,
-        "lastModifiedDate": "2024-07-26T22:20:26.987Z",
+        "scope": "a04aa10dc234825d",
+        "locator": "file:///Users/johnaarnio/Downloads/bs-usb-devices/dist/bundle.js",
+        "fileSize": 64891,
+        "lastModifiedDate": "2024-07-28T01:02:29.063Z",
         "refCount": 1
       }
     },
@@ -807,7 +842,14 @@
       "selectableType": "ZONE",
       "name": "Zone 1: Video, Image, or Audio"
     },
-    "selectionEntities": {},
+    "selectionEntities": {
+      "838ddef6-611f-4000-a77c-4afc797b0000": {
+        "id": "838ddef6-611f-4000-a77c-4afc797b0000",
+        "type": "Html",
+        "selectableType": "STATE",
+        "selectableData": null
+      }
+    },
     "prevSelectionEntities": {
       "838ddef6-611f-4000-a77c-4afc797b0000": {
         "id": "838ddef6-611f-4000-a77c-4afc797b0000",
@@ -827,14 +869,27 @@
           "x": 780,
           "y": 420
         }
+      },
+      "b7e809de-eb4b-4000-a84d-b5b12ab95000": {
+        "id": "b7e809de-eb4b-4000-a84d-b5b12ab95000",
+        "position": {
+          "x": 541.3333740234375,
+          "y": 411.5000305175781
+        }
       }
     },
-    "eventDataById": {},
+    "eventDataById": {
+      "ef8058c0-4b46-4000-a96f-597d45bfa000": {
+        "id": "ef8058c0-4b46-4000-a96f-597d45bfa000",
+        "displayType": "DisplayLabel",
+        "labelLocation": "Bottom"
+      }
+    },
     "viewTransformByZoneId": {
       "f0d6f0cc-ac10-4000-abee-c2db41f80000": {
-        "x": -651.8456023048216,
-        "y": -448.0028666197977,
-        "k": 1.5
+        "x": 0,
+        "y": 0,
+        "k": 1
       }
     },
     "isLoaderEnabled": false

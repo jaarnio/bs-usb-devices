@@ -2,14 +2,25 @@
   "name": "bs-usb-devices",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "server.js",
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "support@brightsign.biz (http://www.brightsign.biz/)",
+  "license": "MIT",
   "dependencies": {
-    "usb": "^2.13.0"
+    "@types/node": "^10.0.0",
+    "copy-webpack-plugin": "^10.2.0",
+    "express": "^4.19.2",
+    "kalman": "0.0.2",
+    "obd-utils": "^0.2.1",
+    "socket.io": "^4.4.1",
+    "supports-color": "^9.2.2",
+    "sylvester": "0.0.21",
+    "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "debug": "^4.1.1",
+    "serialport": "^8.0.8",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
   }
 }

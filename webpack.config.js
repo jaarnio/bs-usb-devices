@@ -1,17 +1,22 @@
-// webpack.config.js
+"use strict";
 const path = require("path");
 
 module.exports = {
-  entry: "./server/usb.js", // Entry point of your Express server file
-  target: "node", // Set the target environment to Node.js
+  entry: "./src/server.js",
   output: {
-    filename: "usb.js", // Output bundle file for the server
-    path: path.resolve(__dirname, "dist"), // Output directory
+    filename: "./bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
-  node: {
-    __dirname: false, // Ensure that __dirname works as expected
+  module: {
+    rules: [{}],
+  },
+  target: "node",
+  resolve: {
+    extensions: [".js"],
   },
   externals: {
+    "@brightsign/serialport": "commonjs @brightsign/serialport",
+    "@brightsign/serialportlist": "commonjs @brightsign/serialportlist",
     "@brightsign/deviceinfo": "commonjs @brightsign/deviceinfo",
   },
 };
